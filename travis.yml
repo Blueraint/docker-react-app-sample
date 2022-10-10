@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+service:
+  - docker
+
+before_install:
+  - echo "start creating an image with dockerfile"
+  - docker build -f Dockerfile.dev -t blueraint/docker-react-app  ./
+
+script:
+  - docker run -e CI=true blueraint/docker-react-app npm run test -- --coverage
+
+after_success:
+  - echo "Test success."
