@@ -4,12 +4,19 @@ services:
     build:
       # "." : context 와 dockerfile 이 동일한 위치에 존재한다
       context: .
-      # dockerfile: Dockerfile.dev
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
-      # - "3000:3000"
-      - '80:80'
+      - "3000:3000"
     volumes:
       - /usr/src/app/node_modules
       - ./:/usr/src/app
     stdin_open: true
+    
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /usr/src/app/node_modules
+      - ./:/usr/src/app
+    command: ["npm","run","test"]
