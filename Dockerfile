@@ -1,15 +1,15 @@
-FROM node:alpine as builder
+FROM node:alpine
 
 RUN mkdir -p /usr/src/app/node_modules/.cache
 RUN chmod -R 777 /usr/src/app
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY --from=0 package.json ./
 
 RUN npm install
 
-COPY ./ ./
+COPY --from=0 ./ ./
 
 RUN npm run build
 
